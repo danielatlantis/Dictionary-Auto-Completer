@@ -1,1 +1,2 @@
 # Dictionary
+This program was designed to function as an auto-completer for words given letters as input. It was designed using the English dictionary stored in lexicographical order and also has the capability of storing and using previously entered words by the user. The dictionary and user history files are stored using a DLB structure, however the user history DLB has precedence over the dictionary. A user's history can be saved into a file and used again for later use allowing for multiple users to each have unique files. 
