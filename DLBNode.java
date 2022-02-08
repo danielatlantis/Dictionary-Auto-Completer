@@ -14,12 +14,12 @@ public class DLBNode implements Serializable {
 	private char let;
 
 	/**
-	 * Leads to keys with prefixed by the current path
+	 * Lead to other alternatives for current letter in the path
 	 */
 	private DLBNode right;
 
 	/**
-	 * Lead to other alternatives for current letter in the path
+	 * Leads to keys with prefixed by the current path
 	 */	
 	private DLBNode down;
 

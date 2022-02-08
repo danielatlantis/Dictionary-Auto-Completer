@@ -137,6 +137,8 @@ public class AutoCompleter implements AutoComplete_Inter
     histTrie.resetByChar();
     dictTrie.resetByChar();
     word = new String();
+    System.out.println(histTrie.contains(curr));
+    //System.out.println("Check UserHistory: " + histTrie.traverse());
     return;
   }
 
@@ -150,17 +152,24 @@ public class AutoCompleter implements AutoComplete_Inter
       FileWriter fw = new FileWriter(fname);
       BufferedWriter bw = new BufferedWriter(fw);
       ArrayList<String> fullList = new ArrayList<String>(); // used to store the words
-      for(int i = 0; i < histTrie.sorter.size(); i++)
+      System.out.println(histTrie.count());
+      histTrie.traverse();
+      for(int i = 0; i < histTrie.count(); i++)
       {
-        fullList.add(histTrie.sorter.get(i).toString());
+        fullList.add(histTrie.content.get(i).toString());
+        System.out.println("Adding the word : " + histTrie.content.get(i).toString());
       }
       ArrayList<Integer> weightList = new ArrayList<Integer>(); // used to the store the corresponding frequency
-      for(int i = 0; i < histTrie.sorter.size(); i++)
+      for(int i = 0; i < histTrie.count(); i++)
       {
-        weightList.add(new Integer(histTrie.sorter.get(i).weight));
+        weightList.add(histTrie.contentWeight.get(i));
+        System.out.println("Adding the weight : " + histTrie.contentWeight.get(i));
       }
       for(int i = 0; i < histTrie.count(); i++)
       {
+        System.out.println(fullList.toString());
+        System.out.println(weightList.toString());
+        System.out.println("Writing to file");
         bw.write(fullList.get(i) + " ");
         bw.write(weightList.get(i) + "\n");
       }

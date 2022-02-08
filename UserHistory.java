@@ -13,6 +13,7 @@ public class UserHistory implements Dict
   ArrayList<String> prediction = new ArrayList<String>();
   ArrayList<Suggestion> sorter = new ArrayList<Suggestion>();
   ArrayList<String> content = new ArrayList<String>();
+  ArrayList<Integer> contentWeight = new ArrayList<Integer>();
   String search = new String();
   String suggestion = new String();
 
@@ -40,7 +41,7 @@ public class UserHistory implements Dict
     }
   }
 
-  // This method checks if a given woprd is already in the DLB, if so increases its frequency
+  // This method checks if a given word is already in the DLB, if so increases its frequency
   // if not then it adds the given word to the DLB.
   public void add(String key)
   {
@@ -322,20 +323,24 @@ public class UserHistory implements Dict
     UHNode node = head;
     String s = new String();
     String w = new String();
-    recursive(node.getDown(), s, w);
+    recursive(node.getDown(), s, w, 0);
     return content;
   }
 
   // This is the recusive part of the traverse method and takes in three arguments:
   // A node to act upon, a string that is progressively being built, and a string to preserve the prefix
-  public void recursive(UHNode node, String word, String storage)
+  public void recursive(UHNode node, String word, String storage, int weight)
   {
+    System.out.println("Current Node is: " + node.getLet());
     if(node.getLet() == term) // base case the current node is the terminating char
     {
+      weight = node.getDown().getFreq();
+      Integer i = new Integer(weight);
       content.add(word); // add word to the ArrayList
+      contentWeight.add(i);
       if(node.getRight() != null) // if the node has siblings recurse upon them
       {
-        recursive(node.getRight(), word, storage);
+        recursive(node.getRight(), word, storage, weight);
       }
       return;
     }
@@ -343,10 +348,10 @@ public class UserHistory implements Dict
     {
       storage = word;
       word = word + node.getLet(); // add letter to the word
-      recursive(node.getDown(), word, storage);
+      recursive(node.getDown(), word, storage, weight);
       if(node.getRight() != null) // before returning check and see if node has sibling then recurse upon them
       {
-        recursive(node.getRight(), storage, storage);
+        recursive(node.getRight(), storage, storage, weight);
       }
       return;
     }

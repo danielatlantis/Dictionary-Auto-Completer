@@ -1,4 +1,3 @@
-
 package cs1501_p2;
 
 import java.io.Serializable;
